@@ -25,7 +25,7 @@ services:
     volumes:
       - ../web:/var/www/html:cached
     extra_hosts:
-      - "dockerhost:10.0.75.1"    
+      - "dockerhost:10.0.75.1"
     tty: true
     environment:
       - PHP_IDE_CONFIG=lempdock
@@ -52,13 +52,15 @@ services:
           - cerberus.test
           - loneandsolo.test
           - noorside.test
+          - cybermentor.test
       frontend:
         aliases:
           - api.local.test
           - cerberus.test
           - loneandsolo.test
           - noorside.test
-### PHP-PFM #################################################      
+          - cybermentor.test
+### PHP-PFM ################################################
   php-fpm:
     build: ./php-fpm
     image: baotd86/php-fpm
@@ -78,7 +80,7 @@ services:
     build:
       context: ./mysql
       args:
-        - MYSQL_VERSION=latest
+        - MYSQL_VERSION=5.7
     image: baotd86/mysql
     environment:
       - MYSQL_DATABASE=phpdock
@@ -87,7 +89,7 @@ services:
       - MYSQL_ROOT_PASSWORD=root
       - TZ=UTC
     volumes:
-      - ./database/mysql:/var/lib/mysql
+      - ./database/mysql57:/var/lib/mysql
       - ./mysql/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
     ports:
       - "3306:3306"
@@ -113,7 +115,9 @@ services:
     environment:
       - NODE_ENV=development
     volumes:
-      - ../web/react-app:/home/node/app
+      - ../web/js-lab:/home/node/app
     ports:
-      - "8081:3000"
-    command: /bin/sh -c "yarn && yarn start"
+      - "8081:8081"
+    command: /bin/sh -c "yarn && yarn add --force node-sass && yarn start"
+    networks:
+      - frontend

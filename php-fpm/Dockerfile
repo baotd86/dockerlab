@@ -56,10 +56,15 @@ RUN docker-php-ext-install mysqli \
 # ZipArchive:
 ###########################################################################
 
-RUN apt-get install libzip-dev -y && \
-    docker-php-ext-configure zip --with-libzip && \
+RUN docker-php-ext-configure zip --with-libzip && \
     # Install the zip extension
     docker-php-ext-install zip
+
+###########################################################################
+# MB_STRING:
+###########################################################################
+
+RUN docker-php-ext-install mbstring
 
 ###########################################################################
 # PHP REDIS EXTENSION
