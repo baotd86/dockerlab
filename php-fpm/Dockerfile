@@ -6,7 +6,7 @@
 
 FROM php:7.1-fpm
 
-LABEL maintainer="Terra Drone <bao.td@terra-drone.co.jp>"
+LABEL maintainer="BaoTD<hi@baotran.me>"
 
 # Set Environment Variables
 ENV DEBIAN_FRONTEND noninteractive
